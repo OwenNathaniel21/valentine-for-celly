@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: #FADADD;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #question {
+            font-family: 'Sacramento', cursive;
+            font-size: 52px;
+            margin-bottom: 20px;
+        }
+
+        #options {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 26px;
+            font-family: 'Sacramento', cursive;
+            background-color: #FB607F;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        img {
+            max-width: 250px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="image-container"></div>
+
+        <div id="question">Will you go wtih me on 14th and be my valentine celly?</div>
+
+        <div id="options">
+            <button id="yes-button" onclick="selectOption('yes')">Yes</button>
+            <button id="no-button" onclick="selectOption('no')">No</button>
+        </div>
+    </div>
+
+    <script>
+       
+        const CAT_IMAGE = "cat.gif";
+        const CAT_HEART_IMAGE = "snoopy-heart.gif";
+       
+
+        function selectOption(option) {
+            if (option === "yes") {
+                flashRainbowColors(() => {
+                    document.getElementById("question").style.display = "none";
+                    displayImage(CAT_HEART_IMAGE);
+                    document.getElementById("options").style.display = "none";
+                });
+            } else {
+                document.getElementById("no-button").innerText = "You sure?";
+                const yesButton = document.getElementById("yes-button");
+                const size = parseFloat(getComputedStyle(yesButton).fontSize);
+                yesButton.style.fontSize = size * 2 + "px";
+            }
+        }
+
+        function flashRainbowColors(callback) {
+            const colors = ["#ff0000","#ff7f00","#ffff00","#00ff00","#0000ff","#4b0082","#9400d3"];
+            let i = 0;
+
+            const interval = setInterval(() => {
+                document.body.style.backgroundColor = colors[i];
+                i = (i + 1) % colors.length;
+            }, 200);
+
+            setTimeout(() => {
+                clearInterval(interval);
+                document.body.style.backgroundColor = "#FADADD";
+                callback();
+            }, 2000);
+        }
+
+        function displayImage(src) {
+            const container = document.getElementById("image-container");
+            container.innerHTML = "";
+
+            const img = new Image();
+            img.src = src;
+            img.alt = "image";
+            container.appendChild(img);
+        }
+
+    
+        displayImage(CAT_IMAGE);
+    </script>
+</body>
+</html>
